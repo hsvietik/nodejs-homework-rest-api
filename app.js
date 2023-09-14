@@ -1,13 +1,17 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
-const dotenv = require("dotenv");
+
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const authRouter = require("./routes/api/auth");
 const contactsRouter = require("./routes/api/contacts");
 
 const app = express();
-dotenv.config();
+
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 app.use(logger(formatsLogger));
